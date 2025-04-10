@@ -1,0 +1,18 @@
+**/vendor
+**/node_modules
+
+**/var/*
+
+.eslintrc.js
+.gitignore
+eslint.config.js
+phpstan.neon
+phpcs.xml
+phpunit.xml
+phpunit.xml.dist
+postcss.config.js
+
+# Ignore all files in the root of the project
+!**/composer.json
+!**/package.json
+!**/webpack.config.js

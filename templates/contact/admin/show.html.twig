@@ -1,0 +1,56 @@
+{% extends 'contact/admin/_show.html.twig' %}
+{% trans_default_domain 'contact' %}
+{% set breadCrumbs = [
+    {'name': 'admin.title'|trans({}, 'admin'), 'url': 'app_adm_accueil'},
+    {'name': 'admin.contact.module'|trans(), 'url': 'app_contact_adm_index'},
+    {'name': 'admin.contact.show'|trans(), 'url': 'app_contact_adm_show', 'params': {'id': contact.id}},
+] %}
+{% block classContact %}d-flex col-12 col gap-1{% endblock %}
+{% block content %}
+<div class="col-6">
+    <div class="d-flex flex-column gap-2">
+        <div class="card card-primary shadow">
+            <div class="card-body">
+                    <div class="float-end">{{ include('contact/admin/_delete_form.html.twig') }}</div>
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <th>{{ 'admin.contact.name'|trans }}</th>
+                            <td>{{ contact.name }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'admin.contact.email'|trans }}</th>
+                            <td>{{ contact.email }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'admin.contact.phone'|trans }}</th>
+                            <td>{{ contact.phone }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'admin.contact.objet'|trans }}</th>
+                            <td>{{ contact.objet }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'admin.contact.sujet'|trans }}</th>
+                            <td>{{ contact.sujet }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="d-flex justify-content-between">
+                        <a class="btn btn-info text-white" href="{{ path('app_contact_adm_index') }}"><i
+                                    class="bi bi-arrow-counterclockwise"></i> {{ 'admin.contact.BackToListContact'|trans }}
+                        </a>
+                        <a href="mailto:{{ contact.email }}" class="btn btn-primary">{{ 'admin.contact.repondre'|trans }}</a>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+{# <div class="col-6">
+    <div class="card card-secondary shadow">
+        <div class="card-body">
+            {{render(controller('App\\Controller\\ContactAdminController::showMail', {'id': contact.id}))}}
+        </div>
+    </div>
+</div> #}
+{% endblock %}

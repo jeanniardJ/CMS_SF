@@ -1,0 +1,5 @@
+framework:
+    mailer:
+        dsn: "%env(MAILER_DSN)%?verify_peer=0" #?verify_peer=0
+        headers:
+            from: "%app.name_develop% <%app.mail_develop%>"

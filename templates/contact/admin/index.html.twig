@@ -1,0 +1,22 @@
+{% extends 'contact/admin/_body.html.twig' %}
+{% trans_default_domain('contact') %}
+{% set breadCrumbs = [
+    {'name': 'admin.title'|trans({}, 'admin'), 'url': 'app_adm_accueil'},
+    {'name': 'admin.contact.module'|trans(), 'url': 'app_contact_adm_index'},
+] %}
+{% block content %}
+    <div class="card-body">
+        <table data-toggle="table" data-url="{{path('app_contact_adm_index')}}" data-side-pagination="server" data-pagination="true">
+            <thead>
+                <tr>
+                    <th data-field="id">#</th>
+                    <th data-field="name">{{ 'admin.contact.name'|trans }}</th>
+                    <th data-field="email">{{ 'admin.contact.email'|trans }}</th>
+                    <th data-field="phone">{{ 'admin.contact.phone'|trans }}</th>
+                    <th data-field="actions">{{ 'admin.contact.action'|trans }}</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+
+{% endblock %}

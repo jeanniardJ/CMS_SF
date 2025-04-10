@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<ruleset name="Standard">
+    <rule ref="PSR12" />
+    <file>./src</file>
+    <exclude-pattern>*/DataFixtures/*</exclude-pattern>
+</ruleset>

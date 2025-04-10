@@ -1,0 +1,5 @@
+{% extends "admin/base.html.twig" %}
+{% trans_default_domain 'contact' %}
+{% block title %}{{ parent() }} - {{ 'admin.contact.title'|trans }}{% endblock %}
+{% block subTitle %}<h2>{{ 'admin.contact.title'|trans }}</h2>{% endblock %}
+{% set menuActive = 'contact' %}
