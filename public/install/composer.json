@@ -1,0 +1,25 @@
+{
+    "name": "jeanniardj/install-symfony",
+    "description": "Symfony Installer",
+    "type": "project",
+    "license": "MIT",
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "homepage": "https://jja-dev.fr",
+    "require": {
+        "php": ">=8.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "JeanniardJ\\Install\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "JeanniardJ\\Install\\Tests\\": "tests/"
+        }
+    },
+    "require-dev": {
+        "doctrine/annotations": "^1.13"
+    }
+}

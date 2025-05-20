@@ -1,10 +1,12 @@
 services:
     database:
         # env_file: .env
-        image: mysql
+        image: mysql:latest
         environment:
-            MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
             MYSQL_DATABASE: "CMS_SF"
+            MYSQL_ROOT_PASSWORD: "root"
+            MYSQL_USER: "CMS_SF"
+            MYSQL_PASSWORD: "password"
         volumes:
             - database_data:/var/lib/mysql
         ports:
@@ -33,4 +35,4 @@ services:
 volumes:
     ###> doctrine/doctrine-bundle ###
     database_data:
-###< doctrine/doctrine-bundle ###
+    ###< doctrine/doctrine-bundle ###

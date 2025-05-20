@@ -1,7 +1,7 @@
 {
     "name": "jja-dev",
-    "version": "1.0.0",
-    "repository": "https://github.com/JJA-DEV-FR/JJA_DEV.git",
+    "version": "0.1.0",
+    "repository": "https://github.com/jeanniardJ/CMS_SF.git",
     "author": "Jonathan J <contact@jja-dev.fr>",
     "description": "JJA-DEV.FR",
     "devDependencies": {

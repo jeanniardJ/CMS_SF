@@ -67,7 +67,7 @@ if (!self.define) {
     });
   };
 }
-define(['./workbox-a85c92f5'], (function (workbox) { 'use strict';
+define(['./workbox-3380be71'], (function (workbox) { 'use strict';
 
   workbox.setCacheNameDetails({
     prefix: "jja-dev-cache-v1"
@@ -82,13 +82,13 @@ define(['./workbox-a85c92f5'], (function (workbox) { 'use strict';
    */
   workbox.precacheAndRoute([{
     "url": "/build/admin.js",
-    "revision": "e9e18003091feced293ac92152ca1896"
+    "revision": "d14219737b9b56a051cab1739c5cc9b1"
   }, {
     "url": "/build/app.js",
-    "revision": "52207f03af7df4aaf9590712e51d1cc9"
+    "revision": "af1a0f126122ea29d325d623bd284d66"
   }, {
     "url": "/build/appCss.css",
-    "revision": "44a8d750d65ef075a0c9936a7f491610"
+    "revision": "2e18331c78c9c2e4874a88f79a67346f"
   }, {
     "url": "/build/assets__layouts_modals_js.js",
     "revision": "ca59056df556b9f05cb10938eb4d0dd3"
@@ -100,7 +100,7 @@ define(['./workbox-a85c92f5'], (function (workbox) { 'use strict';
     "revision": "60e25c07e5533bf6b73ee9a792a0f2db"
   }, {
     "url": "/build/assets_styles_admin_admin_scss.css",
-    "revision": "596c925cfdffb2c2c2a3d33c920f0912"
+    "revision": "7b133d023affd7b65fa00b253bb79528"
   }, {
     "url": "/build/assets_styles_admin_admin_scss.js",
     "revision": "d1f6db77a305f99a34d69a3c855f1d7d"
@@ -111,10 +111,10 @@ define(['./workbox-a85c92f5'], (function (workbox) { 'use strict';
     "url": "/build/contact.css",
     "revision": "8b7e12c3680ed2b56446c0b3b70ad011"
   }, {
-    "url": "/build/fonts/bootstrap-icons.39795c0b.woff",
+    "url": "/build/fonts/bootstrap-icons.1295669c.woff",
     "revision": null
   }, {
-    "url": "/build/fonts/bootstrap-icons.b7bcc075.woff2",
+    "url": "/build/fonts/bootstrap-icons.92ea18a8.woff2",
     "revision": null
   }, {
     "url": "/build/home.css",
@@ -163,10 +163,10 @@ define(['./workbox-a85c92f5'], (function (workbox) { 'use strict';
     "revision": "823a0625210e2e69c7f0c029bdbd3cbb"
   }, {
     "url": "/build/node_modules_symfony_stimulus-bridge_dist_webpack_loader_js_assets_controllers_json-vendor_sy-4f8c26.css",
-    "revision": "b95940b0e7d79da74380ed1c7216d9b2"
+    "revision": "458d53b0b91f589a310f9d363ec6fdf0"
   }, {
     "url": "/build/node_modules_symfony_stimulus-bridge_dist_webpack_loader_js_assets_controllers_json-vendor_sy-4f8c26.js",
-    "revision": "14b5e012cba855832f142f52f8f76cca"
+    "revision": "719e6111c041350a60e754372356306d"
   }, {
     "url": "/build/privatepolicy.css",
     "revision": "7dac27de3dfce471e8df75aec51e4b34"
@@ -178,34 +178,34 @@ define(['./workbox-a85c92f5'], (function (workbox) { 'use strict';
     "revision": "6c10b4683c95d821d5ef2d2a316cc0b1"
   }, {
     "url": "/build/vendor_symfony_ux-autocomplete_assets_dist_controller_js.js",
-    "revision": "1da689a4253efa03b63799629a16d4de"
+    "revision": "ee2d4c8873b3c028dde8f0610753d1ef"
   }, {
     "url": "/build/vendor_symfony_ux-react_assets_dist_render_controller_js.js",
-    "revision": "1047c3d3f0b4eb12862c2678e896a393"
+    "revision": "d823f1addda40f752d19c29ed1c1373b"
   }, {
     "url": "/build/vendor_symfony_ux-typed_assets_dist_controller_js.js",
-    "revision": "0e9b601801e88ab8928206da4856687a"
+    "revision": "e4a23f58753a6cb507879f6ae9309216"
   }, {
     "url": "/build/vendors-node_modules_bootstrap_dist_js_bootstrap_bundle_min_js-node_modules_bootstrap_js_inde-b2221b.css",
-    "revision": "6b2e2f404e3911804c42d9b8dc0248de"
+    "revision": "88da3c2a06b06fca0a6f759f21a29cf7"
   }, {
     "url": "/build/vendors-node_modules_bootstrap_dist_js_bootstrap_bundle_min_js-node_modules_bootstrap_js_inde-b2221b.js",
-    "revision": "8131d12167e58baf75bdbdec7acb4cfd"
+    "revision": "4e7f7f02bd61428d34189dd0689f89e8"
   }, {
     "url": "/build/vendors-node_modules_bootstrap_dist_js_bootstrap_esm_js.js",
-    "revision": "1148758209d9958735163edc2875763e"
+    "revision": "2b7f2a1b088f9399a16785cbdbcaa96c"
   }, {
-    "url": "/build/vendors-node_modules_popperjs_core_lib_index_js-node_modules_symfony_stimulus-bridge_dist_ind-221e81.css",
-    "revision": "7a5df9ac38f070a9c909e68bd4b11b6d"
+    "url": "/build/vendors-node_modules_core-js_modules_es_array_find_js-node_modules_core-js_modules_es_weak-se-98be17.js",
+    "revision": "5c179a5d4d18c63637cf2395fc4221e4"
   }, {
-    "url": "/build/vendors-node_modules_popperjs_core_lib_index_js-node_modules_symfony_stimulus-bridge_dist_ind-221e81.js",
-    "revision": "dba834bccc8b6900503f7efd575f2b97"
+    "url": "/build/vendors-node_modules_popperjs_core_lib_index_js-node_modules_symfony_stimulus-bridge_dist_ind-c1a19c.css",
+    "revision": "3091032b9063ecb2795e453b70a80a0d"
+  }, {
+    "url": "/build/vendors-node_modules_popperjs_core_lib_index_js-node_modules_symfony_stimulus-bridge_dist_ind-c1a19c.js",
+    "revision": "30f9a2f99537ae25982da8539fd87d39"
   }, {
     "url": "/build/vendors-node_modules_react-dom_index_js.js",
     "revision": "0681b5f72f5f6fd32e5a9321e081a4bb"
-  }, {
-    "url": "/build/vendors-node_modules_tom-select_dist_js_tom-select_complete_js-node_modules_core-js_modules_e-e6ca75.js",
-    "revision": "eeee4460446bb629c323eef467b4bacf"
   }, {
     "url": "/build/vendors-node_modules_typed_js_dist_typed_module_js.js",
     "revision": "bea1abdcbe443eada5646a19dff52799"

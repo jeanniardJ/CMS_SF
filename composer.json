@@ -1,21 +1,11 @@
 {
     "type": "project",
-    "license": "proprietary",
+    "license": "MIT",
     "minimum-stability": "stable",
     "prefer-stable": true,
     "homepage": "https://jja-dev.fr",
     "name": "jja-dev/cms",
-    "description": "CMS for JJADEV",
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/JJA-DEV-FR/BlogBundle"
-        },
-        {
-            "type": "vcs",
-            "url": "https://github.com/JJA-DEV-FR/ProspectBundle"
-        }
-    ],
+    "description": "CMS",
     "require": {
         "php": ">=8.2",
         "ext-ctype": "*",
