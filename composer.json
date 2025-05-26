@@ -13,7 +13,6 @@
         "doctrine/doctrine-bundle": "^2.10",
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "doctrine/orm": "^2.19",
-        "elao/consent-bundle": "dev-master",
         "gedmo/doctrine-extensions": "^3.13",
         "guzzlehttp/guzzle": "^7.8",
         "guzzlehttp/psr7": "^2.6",

@@ -40,7 +40,7 @@ use Symfony\UX\LiveComponent\DefaultActionTrait;
 /**
  * Class ContactForm.
  */
-#[AsLiveComponent(csrf: true)]
+#[AsLiveComponent]
 class ContactForm extends AbstractController
 {
     use ComponentWithFormTrait;

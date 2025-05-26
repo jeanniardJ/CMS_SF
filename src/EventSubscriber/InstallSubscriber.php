@@ -25,8 +25,7 @@ class InstallSubscriber implements EventSubscriberInterface
 
     public function onKernelRequest(RequestEvent $event): void
     {
-        //si le fichier .env n'existe pas ou le dossier install existe
-        if (!file_exists($this->kernel->getProjectDir() . '/.env') || is_dir($this->kernel->getProjectDir() . '/public/install')) {
+        if ($this->kernel->getEnvironment() !== 'dev' && (!file_exists($this->kernel->getProjectDir() . '/.env') || is_dir($this->kernel->getProjectDir() . '/public/install'))) {
             // Logique d'installation
             // Par exemple, rediriger vers une page d'installation
             $event->setResponse(new RedirectResponse('/install/index.php'));

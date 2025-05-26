@@ -166,7 +166,7 @@ define(['./workbox-3380be71'], (function (workbox) { 'use strict';
     "revision": "458d53b0b91f589a310f9d363ec6fdf0"
   }, {
     "url": "/build/node_modules_symfony_stimulus-bridge_dist_webpack_loader_js_assets_controllers_json-vendor_sy-4f8c26.js",
-    "revision": "719e6111c041350a60e754372356306d"
+    "revision": "5c661cd4699cdf1ca64f75d83d06a077"
   }, {
     "url": "/build/privatepolicy.css",
     "revision": "7dac27de3dfce471e8df75aec51e4b34"

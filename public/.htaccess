@@ -58,8 +58,9 @@ DirectoryIndex index.php
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ %{ENV:BASE}/index.php [L]
 
-    RewriteCond %{HTTP_HOST} ^jjadevi\.cluster031\.hosting\.ovh\.net$ [NC]
-    RewriteRule ^(.*)$ https://jja-dev.fr/$1 [R=301,L]
+    # RewriteCond %{HTTP_HOST} ^jjadevi\.cluster031\.hosting\.ovh\.net$ [NC]
+    RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+
 </IfModule>
 
 <IfModule !mod_rewrite.c>
@@ -69,7 +70,7 @@ DirectoryIndex index.php
         # and the generated links can still be used.
         RedirectMatch 307 ^/$ /index.php/
         # RedirectTemp cannot be used instead
-        RedirectMatch 301 ^/?(.*)$ https://jja-dev.fr/$1
+        RedirectMatch 301 ^/?(.*)$ https://%{HTTP_HOST}/$1
     </IfModule>
 </IfModule>
 

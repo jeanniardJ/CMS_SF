@@ -66,7 +66,6 @@ To use CMS_SF, you will need to have the following dependencies installed:
 -   **doctrine/doctrine-bundle**: Version 2.10 or higher
 -   **doctrine/doctrine-migrations-bundle**: Version 3.2 or higher
 -   **doctrine/orm**: Version 2.19 or higher
--   **elao/consent-bundle**: Latest development version
 -   **gedmo/doctrine-extensions**: Version 3.13 or higher
 -   **guzzlehttp/guzzle**: Version 7.8 or higher
 -   **guzzlehttp/psr7**: Version 2.6 or higher
