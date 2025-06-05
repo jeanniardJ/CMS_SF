@@ -12,7 +12,6 @@
 
 namespace App\Controller;
 
-use Presta\SitemapBundle\Sitemap\Url\UrlConcrete;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -22,7 +21,7 @@ class PrivacypolicyController extends AbstractController
     #[Route(
         '/privatepolicy',
         name: 'app_privacypolicy_index',
-        options: ['sitemap' => ['priority' => 0.7, 'changefreq' => UrlConcrete::CHANGEFREQ_WEEKLY]]
+        options: ['sitemap' => ['priority' => 0.7]]
     )]
     public function index(): Response
     {

@@ -82,7 +82,7 @@ define(['./workbox-3380be71'], (function (workbox) { 'use strict';
    */
   workbox.precacheAndRoute([{
     "url": "/build/admin.js",
-    "revision": "d14219737b9b56a051cab1739c5cc9b1"
+    "revision": "d97df98d483b195c06aa0392407d3049"
   }, {
     "url": "/build/app.js",
     "revision": "af1a0f126122ea29d325d623bd284d66"
@@ -166,7 +166,7 @@ define(['./workbox-3380be71'], (function (workbox) { 'use strict';
     "revision": "458d53b0b91f589a310f9d363ec6fdf0"
   }, {
     "url": "/build/node_modules_symfony_stimulus-bridge_dist_webpack_loader_js_assets_controllers_json-vendor_sy-4f8c26.js",
-    "revision": "5c661cd4699cdf1ca64f75d83d06a077"
+    "revision": "9b1ce0e17e31a8d1bf55e4afd4fa19ac"
   }, {
     "url": "/build/privatepolicy.css",
     "revision": "7dac27de3dfce471e8df75aec51e4b34"
@@ -181,7 +181,7 @@ define(['./workbox-3380be71'], (function (workbox) { 'use strict';
     "revision": "ee2d4c8873b3c028dde8f0610753d1ef"
   }, {
     "url": "/build/vendor_symfony_ux-react_assets_dist_render_controller_js.js",
-    "revision": "d823f1addda40f752d19c29ed1c1373b"
+    "revision": "43d72aa8c38d5b1b7f61e6963e295906"
   }, {
     "url": "/build/vendor_symfony_ux-typed_assets_dist_controller_js.js",
     "revision": "e4a23f58753a6cb507879f6ae9309216"
@@ -190,7 +190,7 @@ define(['./workbox-3380be71'], (function (workbox) { 'use strict';
     "revision": "88da3c2a06b06fca0a6f759f21a29cf7"
   }, {
     "url": "/build/vendors-node_modules_bootstrap_dist_js_bootstrap_bundle_min_js-node_modules_bootstrap_js_inde-b2221b.js",
-    "revision": "4e7f7f02bd61428d34189dd0689f89e8"
+    "revision": "933e77fb848c629011b2f3ca99f11064"
   }, {
     "url": "/build/vendors-node_modules_bootstrap_dist_js_bootstrap_esm_js.js",
     "revision": "2b7f2a1b088f9399a16785cbdbcaa96c"
@@ -202,10 +202,10 @@ define(['./workbox-3380be71'], (function (workbox) { 'use strict';
     "revision": "3091032b9063ecb2795e453b70a80a0d"
   }, {
     "url": "/build/vendors-node_modules_popperjs_core_lib_index_js-node_modules_symfony_stimulus-bridge_dist_ind-c1a19c.js",
-    "revision": "30f9a2f99537ae25982da8539fd87d39"
+    "revision": "1101952cd773e1f5dab3984a86e01811"
   }, {
     "url": "/build/vendors-node_modules_react-dom_index_js.js",
-    "revision": "0681b5f72f5f6fd32e5a9321e081a4bb"
+    "revision": "4544ea71a2ae7ec2dc5047b3fa6de2b9"
   }, {
     "url": "/build/vendors-node_modules_typed_js_dist_typed_module_js.js",
     "revision": "bea1abdcbe443eada5646a19dff52799"

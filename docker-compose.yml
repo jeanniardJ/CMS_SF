@@ -1,10 +1,10 @@
 services:
     database:
         # env_file: .env
-        image: mysql:latest
+        image: mysql
         environment:
-            MYSQL_DATABASE: "CMS_SF"
             MYSQL_ROOT_PASSWORD: "root"
+            MYSQL_DATABASE: "CMS_SF"
             MYSQL_USER: "CMS_SF"
             MYSQL_PASSWORD: "password"
         volumes:
@@ -15,6 +15,17 @@ services:
             # "3306" to "3306:3306". Where the first port is exposed to the host and the second is the container port.
             # See https://docs.docker.com/compose/compose-file/compose-file-v3/#ports for more information.
             - "3306:3306"
+    phpmyadmin:
+        image: phpmyadmin
+        environment:
+            PMA_HOST: database
+            PMA_USER: root
+            PMA_PASSWORD: root
+        ports:
+            - "8080:80"
+        depends_on:
+            - database
+
     # php:
     #     image: php:8.2-apache
     #     ports:

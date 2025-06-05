@@ -8,15 +8,15 @@ To install CMS_SF, follow these steps:
 
 1. Clone the repository to your local machine:
 
-    ```
-    git clone https://github.com/JJA-DEV/CMS_SF.git
-    ```
+```
+git clone https://github.com/JJA-DEV/CMS_SF.git
+```
 
 2. Install the necessary dependencies:
 
-    ```
-    composer install
-    ```
+```
+composer install
+```
 
 3. Configure the database connection:
 
