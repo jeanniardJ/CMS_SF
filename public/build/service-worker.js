@@ -82,10 +82,10 @@ define(['./workbox-3380be71'], (function (workbox) { 'use strict';
    */
   workbox.precacheAndRoute([{
     "url": "/build/admin.js",
-    "revision": "d97df98d483b195c06aa0392407d3049"
+    "revision": "cced2096e50f107a67f65d3e24c72a89"
   }, {
     "url": "/build/app.js",
-    "revision": "af1a0f126122ea29d325d623bd284d66"
+    "revision": "60216163f0877cca13a23c53b2802233"
   }, {
     "url": "/build/appCss.css",
     "revision": "2e18331c78c9c2e4874a88f79a67346f"
@@ -162,11 +162,8 @@ define(['./workbox-3380be71'], (function (workbox) { 'use strict';
     "url": "/build/legalnotice.css",
     "revision": "823a0625210e2e69c7f0c029bdbd3cbb"
   }, {
-    "url": "/build/node_modules_symfony_stimulus-bridge_dist_webpack_loader_js_assets_controllers_json-vendor_sy-4f8c26.css",
-    "revision": "458d53b0b91f589a310f9d363ec6fdf0"
-  }, {
-    "url": "/build/node_modules_symfony_stimulus-bridge_dist_webpack_loader_js_assets_controllers_json-vendor_sy-4f8c26.js",
-    "revision": "9b1ce0e17e31a8d1bf55e4afd4fa19ac"
+    "url": "/build/node_modules_symfony_stimulus-bridge_dist_webpack_loader_js_assets_controllers_json.js",
+    "revision": "89c5df908e9ccd9586a2525381a70a6c"
   }, {
     "url": "/build/privatepolicy.css",
     "revision": "7dac27de3dfce471e8df75aec51e4b34"
@@ -180,35 +177,29 @@ define(['./workbox-3380be71'], (function (workbox) { 'use strict';
     "url": "/build/vendor_symfony_ux-autocomplete_assets_dist_controller_js.js",
     "revision": "ee2d4c8873b3c028dde8f0610753d1ef"
   }, {
-    "url": "/build/vendor_symfony_ux-react_assets_dist_render_controller_js.js",
-    "revision": "43d72aa8c38d5b1b7f61e6963e295906"
+    "url": "/build/vendors-node_modules_bootstrap_dist_js_bootstrap_bundle_min_js-node_modules_bootstrap_js_inde-281de2.css",
+    "revision": "3206f96637c2d6d67a76bd643d3fdf94"
   }, {
-    "url": "/build/vendor_symfony_ux-typed_assets_dist_controller_js.js",
-    "revision": "e4a23f58753a6cb507879f6ae9309216"
-  }, {
-    "url": "/build/vendors-node_modules_bootstrap_dist_js_bootstrap_bundle_min_js-node_modules_bootstrap_js_inde-b2221b.css",
-    "revision": "88da3c2a06b06fca0a6f759f21a29cf7"
-  }, {
-    "url": "/build/vendors-node_modules_bootstrap_dist_js_bootstrap_bundle_min_js-node_modules_bootstrap_js_inde-b2221b.js",
-    "revision": "933e77fb848c629011b2f3ca99f11064"
+    "url": "/build/vendors-node_modules_bootstrap_dist_js_bootstrap_bundle_min_js-node_modules_bootstrap_js_inde-281de2.js",
+    "revision": "02e19cd9e94a6a328d4cb935d0da36b4"
   }, {
     "url": "/build/vendors-node_modules_bootstrap_dist_js_bootstrap_esm_js.js",
     "revision": "2b7f2a1b088f9399a16785cbdbcaa96c"
   }, {
-    "url": "/build/vendors-node_modules_core-js_modules_es_array_find_js-node_modules_core-js_modules_es_weak-se-98be17.js",
-    "revision": "5c179a5d4d18c63637cf2395fc4221e4"
+    "url": "/build/vendors-node_modules_core-js_internals_object-to-array_js-node_modules_core-js_modules_es_arr-76fb3f.js",
+    "revision": "86150803249969abf08f0f70cdba786f"
   }, {
-    "url": "/build/vendors-node_modules_popperjs_core_lib_index_js-node_modules_symfony_stimulus-bridge_dist_ind-c1a19c.css",
-    "revision": "3091032b9063ecb2795e453b70a80a0d"
+    "url": "/build/vendors-node_modules_core-js_modules_es_array_concat_js-node_modules_core-js_modules_es_array-e3d437.js",
+    "revision": "a2013f102efa6a713adb74d0aca3cf88"
   }, {
-    "url": "/build/vendors-node_modules_popperjs_core_lib_index_js-node_modules_symfony_stimulus-bridge_dist_ind-c1a19c.js",
-    "revision": "1101952cd773e1f5dab3984a86e01811"
+    "url": "/build/vendors-node_modules_core-js_modules_web_dom-collections_for-each_js.js",
+    "revision": "12f016cd35b2036297eb8544b40c66dc"
   }, {
-    "url": "/build/vendors-node_modules_react-dom_index_js.js",
-    "revision": "4544ea71a2ae7ec2dc5047b3fa6de2b9"
+    "url": "/build/vendors-node_modules_popperjs_core_lib_index_js-node_modules_symfony_stimulus-bridge_dist_ind-594e87.css",
+    "revision": "70434050297f8ee7b64dc2247f2f6d11"
   }, {
-    "url": "/build/vendors-node_modules_typed_js_dist_typed_module_js.js",
-    "revision": "bea1abdcbe443eada5646a19dff52799"
+    "url": "/build/vendors-node_modules_popperjs_core_lib_index_js-node_modules_symfony_stimulus-bridge_dist_ind-594e87.js",
+    "revision": "7e1d3e3d743c0f8977855b7feb60d5bb"
   }], {});
   workbox.registerRoute(/\.(?:js|css|png|webp|jpg|svg)$/, new workbox.StaleWhileRevalidate({
     "cacheName": "assets-cache",

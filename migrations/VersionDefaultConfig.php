@@ -17,6 +17,9 @@ final class VersionDefaultConfig extends AbstractMigration
     public function up(Schema $schema): void
     {
         if ($schema->hasTable('config')) {
+
+            $this->postUp($schema);
+            $this->write('Table "config" already exists. Skipping creation and inserting default values.');
             return;
         }
 

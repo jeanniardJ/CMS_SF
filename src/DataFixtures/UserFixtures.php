@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Role;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
@@ -26,7 +27,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $user = new User();
         $user->setUsername('Jonathan');
         $user->setEmail('contact@jja-dev.fr');
-        $user->addRoleEntities($this->getReference('roleUser-2'));
+        $user->addRoleEntities($this->getReference('roleUser-2', Role::class));
         $user->setPassword($this->encoder->hashPassword($user, 'aA&QXVfv36s267'));
 
         $user->setIsVerified(true);
@@ -65,7 +66,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             $user2 = new User();
             $user2->setUsername($user['username']);
             $user2->setEmail($user['email']);
-            $user2->addRoleEntities($this->getReference('roleUser-0'));
+            $user2->addRoleEntities($this->getReference('roleUser-0', Role::class));
             $user2->setPassword($this->encoder->hashPassword($user2, $user['password']));
             $manager->persist($user2);
         }
@@ -74,7 +75,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             $user2 = new User();
             $user2->setUsername($faker->userName);
             $user2->setEmail($faker->email);
-            $user2->addRoleEntities($this->getReference('roleUser-0'));
+            $user2->addRoleEntities($this->getReference('roleUser-0', Role::class));
             $user2->setPassword($this->encoder->hashPassword($user2, $faker->password));
             $user2->setIsVerified($faker->boolean);
             $manager->persist($user2);

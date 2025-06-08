@@ -4,9 +4,7 @@
  * @category Service
  *
  * @author   JJA-DEV
- * @license  JJA DEV © 2021 par Jeanniard Jonathan sous licence MIT.
- * Pour voir une copie de cette licence, visitez https://opensource.org/licenses/MIT
- *
+ * @license  MIT
  * @see     https://jja-dev.fr
  */
 
@@ -24,9 +22,7 @@ use Github\Client;
  *
  * @auteur   JJA-DEV
  *
- * @licence  JJA DEV © 2021 par Jeanniard Jonathan sous licence CC BY-NC-ND 4.0.
- * Pour consulter une copie de cette licence, visitez https://creativecommons.org/licenses/by-nc-nd/4.0/
- *
+ * @licence  MIT
  * @lien     https://jja-dev.fr
  */
 class GithubService
@@ -40,7 +36,7 @@ class GithubService
     }
 
     /**
-     * Get repositories from the JJA-DEV-FR organization.
+     * Get repositories from the depository of choice.
      *
      * @param int $page
      *
@@ -49,7 +45,7 @@ class GithubService
     public function getRepositoriesOrg($page = 0): array
     {
         $repos = [];
-        $repos = $this->client->api('repos')->org('JJA-DEV-FR', ['page' => $page, 'per_page' => '10']);
+        $repos = $this->client->repositories()->org('JJA-DEV-FR', ['page' => $page, 'per_page' => '10']);
         $filteredRepos = [];
 
         foreach ($repos as $repo) {
@@ -62,14 +58,15 @@ class GithubService
     }
 
     /**
-     * Get the repository by its id.
+     * Get the repository by its owner and name.
      *
-     * @param int $id
+     * @param string $owner
+     * @param string $repo
      *
      * @return array<mixed>
      */
-    public function getRepositoryById($id): array
+    public function getRepositoryById(string $owner, string $repo): array
     {
-        return $this->client->api('repos')->showById($id);
+        return $this->client->repositories()->show($owner, $repo);
     }
 }

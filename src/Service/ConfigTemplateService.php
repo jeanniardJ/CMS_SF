@@ -20,9 +20,7 @@ use App\Repository\ConfigTemplateRepository;
  * @category Service
  *
  * @author   JJA-DEV
- * @license  JJA DEV © 2021 par Jeanniard Jonathan sous licence CC BY-NC-ND 4.0.
- * Pour voir une copie de cette licence, visitez https://creativecommons.org/licenses/by-nc-nd/4.0/
- *
+ * @license  MIT
  * @see     https://jja-dev.fr
  * This class is a service that retrieves the template configuration.
  */
@@ -35,6 +33,9 @@ class ConfigTemplateService
         $this->configTemplateRepository = $configTemplateRepository;
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function getConfigTemplate(): array
     {
         return $this->configTemplateRepository->findTemplateConfig();

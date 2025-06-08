@@ -17,6 +17,7 @@ final class VersionDefaultTemplate extends AbstractMigration
     public function up(Schema $schema): void
     {
         if ($schema->hasTable('config_template')) {
+            $this->postUp($schema);
             return;
         }
 
