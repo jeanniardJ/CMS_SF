@@ -17,6 +17,7 @@ use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 use SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelperInterface;
+use App\Entity\User;
 
 /**
  * Classe EmailVerifier.
@@ -38,14 +39,25 @@ class EmailVerifier
         private EntityManagerInterface $entityManager
     ) {}
 
+    /**
+     * Sends an email to the user with a signed URL to confirm their email address.
+     *
+     * @param User $user The user to send the email to
+     *
+     */
     public function sendEmailConfirmation(
         string $verifyEmailRouteName,
-        UserInterface $user,
+        User $user,
         TemplatedEmail $email
     ): void {
+
+        if (!$user instanceof User) {
+            throw new \InvalidArgumentException('The user must be an instance of the User class.');
+        }
+
         $signatureComponents = $this->verifyEmailHelper->generateSignature(
             $verifyEmailRouteName,
-            $user->getId(),
+            (string) $user->getId(),
             $user->getEmail()
         );
 
@@ -62,9 +74,9 @@ class EmailVerifier
     /**
      * @throws VerifyEmailExceptionInterface
      */
-    public function handleEmailConfirmation(Request $request, UserInterface $user): void
+    public function handleEmailConfirmation(Request $request, User $user): void
     {
-        $this->verifyEmailHelper->validateEmailConfirmation($request->getUri(), $user->getId(), $user->getEmail());
+        $this->verifyEmailHelper->validateEmailConfirmationFromRequest($request, (string) $user->getId(), $user->getEmail());
 
         $user->setIsVerified(true);
 

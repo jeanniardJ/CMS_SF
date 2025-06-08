@@ -42,7 +42,7 @@ class UserAdminController extends AbstractController
         return $this->render('user/admin/index.html.twig');
     }
 
-    public function userBlock(UserRepository $userRepository)
+    public function userBlock(UserRepository $userRepository): Response
     {
         return $this->render('user/admin/block/index.html.twig', [
             'users' => $userRepository->findAll(),
@@ -116,7 +116,7 @@ class UserAdminController extends AbstractController
     }
 
     #[Route('/{id}/delete', name: 'app_user_adm_delete', methods: ['POST'])]
-    public function delete(Request $request, $id, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, int $id, EntityManagerInterface $entityManager): Response
     {
         $user = $entityManager->getRepository(User::class)->findOneBy(['id' => $id]);
 
