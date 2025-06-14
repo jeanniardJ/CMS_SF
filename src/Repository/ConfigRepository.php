@@ -13,6 +13,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Config|null findOneBy(array $criteria, array $orderBy = null)
  * @method Config[]    findAll()
  * @method Config[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Config|null findOneByName(string $name): ?Config
  */
 class ConfigRepository extends ServiceEntityRepository
 {
@@ -46,6 +47,11 @@ class ConfigRepository extends ServiceEntityRepository
     //        ;
     //    }
 
+    /**
+     * Find global configuration settings.
+     *
+     * @return array<string, mixed>
+     */
     public function findGlobalConfig(): array
     {
         $configGeneral = $this->createQueryBuilder('c')

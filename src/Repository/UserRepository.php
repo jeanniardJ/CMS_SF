@@ -23,8 +23,6 @@ use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
  *
  * @extends ServiceEntityRepository<User>
  *
- * @implements PasswordUpgraderInterface<User>
- *
  * @method User|null find($id, $lockMode = null, $lockVersion = null)
  * @method User|null findOneBy(array $criteria, array $orderBy = null)
  * @method User[]    findAll()
@@ -52,6 +50,15 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->getEntityManager()->flush();
     }
 
+    /**
+     * @param int    $limit
+     * @param int    $offset
+     * @param string $search
+     * @param string $sort
+     * @param string $order
+     *
+     * @return array<int, array<string, mixed>>
+     */
     public function findByTable($limit, $offset, $search = null, $sort = null, $order = 'asc'): array
     {
         $users = $this->createQueryBuilder('u');

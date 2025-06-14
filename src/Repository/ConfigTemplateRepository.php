@@ -20,6 +20,12 @@ use Doctrine\Persistence\ManagerRegistry;
  * class ConfigTemplateRepository.
  *
  * @extends ServiceEntityRepository<ConfigTemplate>
+ * 
+ * @method ConfigTemplate|null find($id, $lockMode = null, $lockVersion = null)
+ * @method ConfigTemplate|null findOneBy(array $criteria, array $orderBy = null)
+ * @method ConfigTemplate[]    findAll()
+ * @method ConfigTemplate[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method ConfigTemplate|null findOneByName(string $name): ?ConfigTemplate
  */
 class ConfigTemplateRepository extends ServiceEntityRepository
 {
@@ -28,6 +34,11 @@ class ConfigTemplateRepository extends ServiceEntityRepository
         parent::__construct($registry, ConfigTemplate::class);
     }
 
+    /**
+     * Find configuration template settings.
+     *
+     * @return array<string, mixed>
+     */
     public function findTemplateConfig(): array
     {
         $presentation = $this->createQueryBuilder('c')

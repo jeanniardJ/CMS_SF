@@ -47,6 +47,8 @@ class ConfigAdminController extends AbstractController
     #[Route('/', name: 'app_config_adm_index', methods: ['GET', 'POST'])]
     public function index(Request $request, ConfigRepository $configRepository, EntityManagerInterface $entityManager, SerializerInterface $serializer, string $uploadImagesDirectory): Response
     {
+        /*
+         */
         $config = $configRepository->findOneByName('site');
         $configGeneral = null;
 
@@ -185,6 +187,17 @@ class ConfigAdminController extends AbstractController
     //        ]);
     //    }
 
+    /**
+     * @param string $form
+     * @param ConfigRepository $configRepository
+     * @param EntityManagerInterface $entityManager
+     * @param string $configName
+     * @param string $classConfig
+     * @param Request $request
+     * @param SerializerInterface $serializer
+     *
+     * @return mixed
+     */
     private function manageForm($form, $configRepository, $entityManager, $configName, $classConfig, $request, $serializer): mixed
     {
         $config = $configRepository->findOneByName($configName);

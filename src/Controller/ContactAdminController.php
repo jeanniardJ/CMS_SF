@@ -111,21 +111,14 @@ class ContactAdminController extends AbstractController
 
     //Listes les echanges avec le contact a partir de son email depuis le serveur mail
     #[Route('/{id}/mail', name: 'app_contact_adm_show_mail', methods: 'GET')]
-    public function showMail(Contact $contact, MailerInterface $mailer, TranslatorInterface $translate): Response
+    public function showMail(Contact $contact, TranslatorInterface $translate): Response
     {
+        // MailerInterface cannot be used to fetch sent/received emails.
+        // You need to implement fetching emails from a mail server or storage.
+        // For now, return an empty array or implement your own mail fetching logic.
         $mails = [];
-        $email = $contact->getEmail();
-        $messages = $mailer;
 
-        foreach ($messages as $message) {
-            if ($message->getTo()[0]->getAddress() === $email) {
-                $mails[] = [
-                    'subject' => $message->getSubject(),
-                    'body' => $message->getBody(),
-                    'date' => $message->getDate(),
-                ];
-            }
-        }
+        // Example: $mails = $yourMailService->fetchMailsFor($contact->getEmail());
 
         return $this->render('contact/admin/_show_mail.html.twig', ['mails' => $mails]);
     }

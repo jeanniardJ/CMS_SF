@@ -105,7 +105,7 @@ class ModuleAdminController extends AbstractController
                 ['idGithub' => $request->get('id')]
             ) ?
                 $repositories->findOneBy(['idGithub' => $request->get('id')]) :
-                $githubService->getRepositoryById($request->get('id')),
+                $githubService->getRepositoryById($request->get('id'), ''),
         ]);
     }
 
@@ -116,7 +116,7 @@ class ModuleAdminController extends AbstractController
         ModuleRepository $moduleRepository,
         EntityManagerInterface $entityManagerInterface
     ): Response {
-        $module = $githubService->getRepositoryById($request->get('idGithub'));
+        $module = $githubService->getRepositoryById($request->get('idGithub'), '');
         $moduleExist = $moduleRepository->findOneBy(['idGithub' => $module['id']]);
 
         if (null === $moduleExist) {
@@ -162,7 +162,7 @@ class ModuleAdminController extends AbstractController
         ModuleRepository $moduleRepository,
         EntityManagerInterface $entityManagerInterface
     ): Response {
-        $module = $githubService->getRepositoryById($request->get('idGithub'));
+        $module = $githubService->getRepositoryById($request->get('idGithub'), '');
         $moduleExist = $moduleRepository->findOneBy(['idGithub' => $module['id']]);
 
         if (!$moduleExist) {
@@ -201,7 +201,7 @@ class ModuleAdminController extends AbstractController
     #[Route('/{idGithub}/update', name: 'app_module_admin_update', methods: ['GET'])]
     public function update(GithubService $githubService, Request $request): Response
     {
-        $module = $githubService->getRepositoryById($request->get('id'));
+        $module = $githubService->getRepositoryById($request->get('id'), '');
 
         return $this->redirectToRoute('app_module_admin');
     }

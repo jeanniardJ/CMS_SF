@@ -10,6 +10,7 @@
 /config/secrets/dev/dev.decrypt.public.php
 
 /public/bundles/
+/public/build
 /var/
 /vendor/
 ###< symfony/framework-bundle ###
