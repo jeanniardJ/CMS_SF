@@ -65,6 +65,8 @@ services:
             $projectDir: '%kernel.project_dir%'
     
     App\EventSubscriber\InstallSubscriber:
+        arguments:
+            $projectDir: '%kernel.project_dir%'
         tags:
             - { name: "kernel.event_subscriber", priority: 100 }
 
