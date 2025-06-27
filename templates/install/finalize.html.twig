@@ -1,0 +1,229 @@
+{% extends 'install/layout.html.twig' %}
+
+{% block title %}Finalisation{% endblock %}
+
+{% block content %}
+    <div class="text-center mb-4">
+        <i class="fas fa-flag-checkered fa-3x text-success mb-3"></i>
+        <h2>Finalisation de l'installation</h2>
+        <p class="lead">
+            Récapitulatif et application finale des configurations.
+        </p>
+    </div>
+
+    {% if migration_error is defined %}
+        <div class="alert alert-danger" role="alert">
+            <i class="fas fa-exclamation-triangle me-2"></i>
+            <strong>Erreur de migration :</strong> {{ migration_error }}
+        </div>
+    {% endif %}
+
+    {% if user_error is defined %}
+        <div class="alert alert-danger" role="alert">
+            <i class="fas fa-exclamation-triangle me-2"></i>
+            <strong>Erreur de création d'utilisateur :</strong> {{ user_error }}
+        </div>
+    {% endif %}
+
+    {% if config_error is defined %}
+        <div class="alert alert-danger" role="alert">
+            <i class="fas fa-exclamation-triangle me-2"></i>
+            <strong>Erreur de configuration :</strong> {{ config_error }}
+        </div>
+    {% endif %}
+
+    {% if lock_error is defined %}
+        <div class="alert alert-danger" role="alert">
+            <i class="fas fa-exclamation-triangle me-2"></i>
+            <strong>Erreur de verrouillage :</strong> {{ lock_error }}
+        </div>
+    {% endif %}
+
+    {% if summary is defined %}
+        <!-- Configuration Summary -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-list me-2"></i>
+                    Récapitulatif de la configuration
+                </h5>
+            </div>
+            <div class="card-body">
+                <!-- Database Configuration -->
+                {% if summary.database %}
+                    <div class="mb-3">
+                        <h6 class="text-primary">
+                            <i class="fas fa-database me-2"></i>
+                            Base de données
+                        </h6>
+                        <ul class="list-unstyled ms-3">
+                            <li><strong>Type :</strong> {{ summary.database.type|upper }}</li>
+                            {% if summary.database.type != 'sqlite' %}
+                                <li><strong>Hôte :</strong> {{ summary.database.host }}{% if summary.database.port %}:{{ summary.database.port }}{% endif %}</li>
+                                <li><strong>Base :</strong> {{ summary.database.name }}</li>
+                                <li><strong>Utilisateur :</strong> {{ summary.database.user }}</li>
+                            {% else %}
+                                <li><strong>Fichier :</strong> var/data.db</li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                {% endif %}
+
+                <!-- Admin User -->
+                {% if summary.user %}
+                    <div class="mb-3">
+                        <h6 class="text-warning">
+                            <i class="fas fa-user-shield me-2"></i>
+                            Compte administrateur
+                        </h6>
+                        <ul class="list-unstyled ms-3">
+                            <li><strong>Email :</strong> {{ summary.user.email }}</li>
+                            {% if summary.user.username %}
+                                <li><strong>Nom d'utilisateur :</strong> {{ summary.user.username }}</li>
+                            {% endif %}
+                            {% if summary.user.first_name or summary.user.last_name %}
+                                <li><strong>Nom complet :</strong> {{ summary.user.first_name }} {{ summary.user.last_name }}</li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                {% endif %}
+
+                <!-- Site Configuration -->
+                {% if summary.config.site %}
+                    <div class="mb-3">
+                        <h6 class="text-info">
+                            <i class="fas fa-globe me-2"></i>
+                            Site
+                        </h6>
+                        <ul class="list-unstyled ms-3">
+                            {% if summary.config.site.name %}
+                                <li><strong>Nom :</strong> {{ summary.config.site.name }}</li>
+                            {% endif %}
+                            {% if summary.config.site.url %}
+                                <li><strong>URL :</strong> {{ summary.config.site.url }}</li>
+                            {% endif %}
+                            {% if summary.config.site.description %}
+                                <li><strong>Description :</strong> {{ summary.config.site.description|slice(0, 100) }}{% if summary.config.site.description|length > 100 %}...{% endif %}</li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Installation Actions -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-tasks me-2"></i>
+                    Actions d'installation
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-info" role="alert">
+                    <i class="fas fa-info-circle me-2"></i>
+                    En cliquant sur "Finaliser l'installation", les actions suivantes seront exécutées :
+                </div>
+                
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item d-flex align-items-center">
+                        <i class="fas fa-database text-primary me-3"></i>
+                        <div>
+                            <strong>Migration de la base de données</strong>
+                            <br><small class="text-muted">Création des tables et structures nécessaires</small>
+                        </div>
+                    </li>
+                    <li class="list-group-item d-flex align-items-center">
+                        <i class="fas fa-user-plus text-warning me-3"></i>
+                        <div>
+                            <strong>Création du compte administrateur</strong>
+                            <br><small class="text-muted">Configuration des permissions et rôles</small>
+                        </div>
+                    </li>
+                    <li class="list-group-item d-flex align-items-center">
+                        <i class="fas fa-cog text-info me-3"></i>
+                        <div>
+                            <strong>Sauvegarde de la configuration</strong>
+                            <br><small class="text-muted">Application des paramètres du site</small>
+                        </div>
+                    </li>
+                    <li class="list-group-item d-flex align-items-center">
+                        <i class="fas fa-lock text-success me-3"></i>
+                        <div>
+                            <strong>Verrouillage de l'installation</strong>
+                            <br><small class="text-muted">Sécurisation et finalisation du processus</small>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="alert alert-warning" role="alert">
+            <i class="fas fa-exclamation-triangle me-2"></i>
+            <strong>Important :</strong> Cette action est irréversible. Assurez-vous que toutes les informations sont correctes avant de continuer.
+        </div>
+
+        <form method="post" id="finalize-form">
+            <div class="d-flex justify-content-between mt-4">
+                <a href="{{ path('install_site_config') }}" class="btn btn-outline-secondary">
+                    <i class="fas fa-arrow-left me-2"></i>
+                    Retour
+                </a>
+                
+                <button type="submit" class="btn btn-success btn-lg" id="finalize-btn">
+                    <i class="fas fa-rocket me-2"></i>
+                    Finaliser l'installation
+                </button>
+            </div>
+        </form>
+    {% else %}
+        <!-- Installation in progress -->
+        <div class="text-center">
+            <div class="spinner-border text-primary mb-3" role="status" style="width: 3rem; height: 3rem;">
+                <span class="visually-hidden">Installation en cours...</span>
+            </div>
+            <h4>Installation en cours...</h4>
+            <p class="lead">Veuillez patienter pendant l'application de la configuration.</p>
+            
+            <div class="progress mb-3" style="height: 25px;">
+                <div class="progress-bar progress-bar-striped progress-bar-animated" 
+                     role="progressbar" style="width: 100%">
+                    Finalisation...
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const finalizeForm = document.getElementById('finalize-form');
+            const finalizeBtn = document.getElementById('finalize-btn');
+
+            if (finalizeForm && finalizeBtn) {
+                finalizeForm.addEventListener('submit', function(e) {
+                    // Show confirmation dialog
+                    if (!confirm('Êtes-vous sûr de vouloir finaliser l\'installation ? Cette action est irréversible.')) {
+                        e.preventDefault();
+                        return;
+                    }
+
+                    // Disable button and show loading state
+                    finalizeBtn.disabled = true;
+                    finalizeBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Installation en cours...';
+
+                    // Optional: Add a timeout in case the process takes too long
+                    setTimeout(function() {
+                        if (finalizeBtn.disabled) {
+                            finalizeBtn.innerHTML = '<i class="fas fa-exclamation-triangle me-2"></i>Timeout - Rechargez la page';
+                            finalizeBtn.classList.remove('btn-success');
+                            finalizeBtn.classList.add('btn-warning');
+                        }
+                    }, 30000); // 30 seconds timeout
+                });
+            }
+        });
+    </script>
+{% endblock %}

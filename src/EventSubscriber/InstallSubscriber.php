@@ -2,18 +2,23 @@
 
 namespace App\EventSubscriber;
 
-use App\Kernel;
-use Symfony\Component\HttpKernel\Event\RequestEvent;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpKernel\Event\RequestEvent;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class InstallSubscriber implements EventSubscriberInterface
 {
-    private Kernel $kernel;
+    private string $projectDir;
+    private UrlGeneratorInterface $urlGenerator;
+    private Filesystem $filesystem;
 
-    public function __construct(Kernel $kernel)
+    public function __construct(string $projectDir, UrlGeneratorInterface $urlGenerator)
     {
-        $this->kernel = $kernel;
+        $this->projectDir = $projectDir;
+        $this->urlGenerator = $urlGenerator;
+        $this->filesystem = new Filesystem();
     }
 
     public static function getSubscribedEvents(): array
@@ -25,12 +30,34 @@ class InstallSubscriber implements EventSubscriberInterface
 
     public function onKernelRequest(RequestEvent $event): void
     {
-        if ($this->kernel->getEnvironment() !== 'dev' && (!file_exists($this->kernel->getProjectDir() . '/.env') || is_dir($this->kernel->getProjectDir() . '/public/install'))) {
-            // Logique d'installation
-            // Par exemple, rediriger vers une page d'installation
-            $event->setResponse(new RedirectResponse('/install/index.php'));
+        $request = $event->getRequest();
+        
+        // Don't interfere with install routes or static assets
+        if (str_starts_with($request->getPathInfo(), '/install') || 
+            str_starts_with($request->getPathInfo(), '/build') ||
+            str_starts_with($request->getPathInfo(), '/_') ||
+            $request->getPathInfo() === '/favicon.ico') {
+            return;
+        }
 
-            $event->stopPropagation();
+        // Check if installation is completed
+        $installLockFile = $this->projectDir . '/.installed';
+        $envFile = $this->projectDir . '/.env';
+        
+        // If not installed, redirect to installation wizard
+        if (!$this->filesystem->exists($installLockFile) || !$this->filesystem->exists($envFile)) {
+            $installUrl = $this->urlGenerator->generate('install_welcome');
+            $response = new RedirectResponse($installUrl);
+            $event->setResponse($response);
+            return;
+        }
+        
+        // If accessing install routes when already installed, redirect to main site
+        if (str_starts_with($request->getPathInfo(), '/install')) {
+            $homeUrl = $this->urlGenerator->generate('install_welcome'); // This will show "already installed" page
+            $response = new RedirectResponse($homeUrl);
+            $event->setResponse($response);
+            return;
         }
     }
 }

@@ -1,0 +1,207 @@
+{% extends 'install/layout.html.twig' %}
+
+{% block title %}Tests de compatibilité{% endblock %}
+
+{% block content %}
+    <div class="text-center mb-4">
+        <i class="fas fa-clipboard-check fa-3x text-info mb-3"></i>
+        <h2>Tests de compatibilité</h2>
+        <p class="lead">
+            Vérification des prérequis système pour l'installation.
+        </p>
+    </div>
+
+    <div id="compatibility-results">
+        {% if checks is defined %}
+            <!-- PHP Version Check -->
+            <div class="mb-4">
+                <h5>
+                    <i class="fab fa-php me-2"></i>
+                    Version PHP
+                </h5>
+                <div class="check-item check-{{ checks.php_version.status }}">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span>{{ checks.php_version.message }}</span>
+                        {% if checks.php_version.status == 'success' %}
+                            <i class="fas fa-check-circle"></i>
+                        {% elseif checks.php_version.status == 'warning' %}
+                            <i class="fas fa-exclamation-triangle"></i>
+                        {% else %}
+                            <i class="fas fa-times-circle"></i>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Extensions Check -->
+            <div class="mb-4">
+                <h5>
+                    <i class="fas fa-puzzle-piece me-2"></i>
+                    Extensions PHP
+                </h5>
+                {% for extension in checks.extensions %}
+                    <div class="check-item check-{{ extension.status }}">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span>{{ extension.message }}</span>
+                            {% if extension.status == 'success' %}
+                                <i class="fas fa-check-circle"></i>
+                            {% else %}
+                                <i class="fas fa-times-circle"></i>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <!-- Directories Check -->
+            <div class="mb-4">
+                <h5>
+                    <i class="fas fa-folder me-2"></i>
+                    Permissions des dossiers
+                </h5>
+                {% for directory in checks.directories %}
+                    <div class="check-item check-{{ directory.status }}">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span>{{ directory.message }}</span>
+                            {% if directory.status == 'success' %}
+                                <i class="fas fa-check-circle"></i>
+                            {% elseif directory.status == 'warning' %}
+                                <i class="fas fa-exclamation-triangle"></i>
+                            {% else %}
+                                <i class="fas fa-times-circle"></i>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <!-- Memory Check -->
+            <div class="mb-4">
+                <h5>
+                    <i class="fas fa-memory me-2"></i>
+                    Mémoire
+                </h5>
+                <div class="check-item check-{{ checks.memory.status }}">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span>{{ checks.memory.message }}</span>
+                        {% if checks.memory.status == 'success' %}
+                            <i class="fas fa-check-circle"></i>
+                        {% elseif checks.memory.status == 'warning' %}
+                            <i class="fas fa-exclamation-triangle"></i>
+                        {% else %}
+                            <i class="fas fa-times-circle"></i>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Network Check -->
+            <div class="mb-4">
+                <h5>
+                    <i class="fas fa-network-wired me-2"></i>
+                    Connectivité réseau
+                </h5>
+                <div class="check-item check-{{ checks.network.status }}">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span>{{ checks.network.message }}</span>
+                        {% if checks.network.status == 'success' %}
+                            <i class="fas fa-check-circle"></i>
+                        {% elseif checks.network.status == 'warning' %}
+                            <i class="fas fa-exclamation-triangle"></i>
+                        {% else %}
+                            <i class="fas fa-times-circle"></i>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Overall Status -->
+            <div class="alert alert-{{ checks.overall.status == 'success' ? 'success' : (checks.overall.status == 'warning' ? 'warning' : 'danger') }}" role="alert">
+                <div class="d-flex align-items-center">
+                    {% if checks.overall.status == 'success' %}
+                        <i class="fas fa-check-circle fa-2x me-3"></i>
+                    {% elseif checks.overall.status == 'warning' %}
+                        <i class="fas fa-exclamation-triangle fa-2x me-3"></i>
+                    {% else %}
+                        <i class="fas fa-times-circle fa-2x me-3"></i>
+                    {% endif %}
+                    <div>
+                        <h6 class="alert-heading mb-1">{{ checks.overall.name }}</h6>
+                        <p class="mb-0">{{ checks.overall.message }}</p>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="text-center" id="loading-section" style="display: none;">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Chargement...</span>
+        </div>
+        <p class="mt-2">Vérification des prérequis...</p>
+    </div>
+
+    <div class="d-flex justify-content-between mt-4">
+        <a href="{{ path('install_welcome') }}" class="btn btn-outline-secondary">
+            <i class="fas fa-arrow-left me-2"></i>
+            Retour
+        </a>
+        
+        <div>
+            <button type="button" class="btn btn-outline-primary me-2" id="recheck-btn">
+                <i class="fas fa-sync-alt me-2"></i>
+                Revérifier
+            </button>
+            
+            {% if checks is defined and checks.overall.status != 'error' %}
+                <a href="{{ path('install_database') }}" class="btn btn-primary">
+                    Continuer
+                    <i class="fas fa-arrow-right ms-2"></i>
+                </a>
+            {% else %}
+                <button class="btn btn-primary" disabled>
+                    Continuer
+                    <i class="fas fa-arrow-right ms-2"></i>
+                </button>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const recheckBtn = document.getElementById('recheck-btn');
+            const resultsSection = document.getElementById('compatibility-results');
+            const loadingSection = document.getElementById('loading-section');
+
+            if (recheckBtn) {
+                recheckBtn.addEventListener('click', function() {
+                    resultsSection.style.display = 'none';
+                    loadingSection.style.display = 'block';
+                    recheckBtn.disabled = true;
+
+                    fetch('{{ path("install_compatibility_check") }}', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-Requested-With': 'XMLHttpRequest'
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        // Reload page to show updated results
+                        window.location.reload();
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        loadingSection.style.display = 'none';
+                        resultsSection.style.display = 'block';
+                        recheckBtn.disabled = false;
+                    });
+                });
+            }
+        });
+    </script>
+{% endblock %}

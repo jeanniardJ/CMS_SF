@@ -1,0 +1,236 @@
+{% extends 'install/layout.html.twig' %}
+
+{% block title %}Compte administrateur{% endblock %}
+
+{% block content %}
+    <div class="text-center mb-4">
+        <i class="fas fa-user-shield fa-3x text-warning mb-3"></i>
+        <h2>Compte administrateur</h2>
+        <p class="lead">
+            Création de votre compte administrateur principal.
+        </p>
+    </div>
+
+    {% if errors is defined and errors %}
+        <div class="alert alert-danger" role="alert">
+            <i class="fas fa-exclamation-triangle me-2"></i>
+            <strong>Erreurs de validation :</strong>
+            <ul class="mb-0 mt-2">
+                {% for error in errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    <div class="alert alert-info" role="alert">
+        <i class="fas fa-info-circle me-2"></i>
+        <strong>Important :</strong> Ce compte aura tous les privilèges d'administration. 
+        Choisissez un mot de passe fort et conservez ces informations en sécurité.
+    </div>
+
+    <form method="post" id="admin-user-form">
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="email" class="form-label">
+                    <i class="fas fa-envelope me-2"></i>
+                    Adresse email <span class="text-danger">*</span>
+                </label>
+                <input type="email" class="form-control" id="email" name="email" 
+                       value="{{ user_data.email }}" required>
+                <div class="form-text">Utilisée pour la connexion et les notifications.</div>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="username" class="form-label">
+                    <i class="fas fa-user me-2"></i>
+                    Nom d'utilisateur
+                </label>
+                <input type="text" class="form-control" id="username" name="username" 
+                       value="{{ user_data.username }}" placeholder="Optionnel">
+                <div class="form-text">Si vide, l'email sera utilisé.</div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="first_name" class="form-label">
+                    <i class="fas fa-id-card me-2"></i>
+                    Prénom
+                </label>
+                <input type="text" class="form-control" id="first_name" name="first_name" 
+                       value="{{ user_data.first_name }}">
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="last_name" class="form-label">
+                    <i class="fas fa-id-card me-2"></i>
+                    Nom
+                </label>
+                <input type="text" class="form-control" id="last_name" name="last_name" 
+                       value="{{ user_data.last_name }}">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="password" class="form-label">
+                    <i class="fas fa-lock me-2"></i>
+                    Mot de passe <span class="text-danger">*</span>
+                </label>
+                <input type="password" class="form-control" id="password" name="password" required>
+                <div class="form-text">
+                    <small>
+                        Le mot de passe doit contenir :
+                        <ul class="mb-0">
+                            <li>Au moins 8 caractères</li>
+                            <li>Une lettre majuscule et minuscule</li>
+                            <li>Un chiffre</li>
+                            <li>Un caractère spécial</li>
+                        </ul>
+                    </small>
+                </div>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="password_confirm" class="form-label">
+                    <i class="fas fa-lock me-2"></i>
+                    Confirmer le mot de passe <span class="text-danger">*</span>
+                </label>
+                <input type="password" class="form-control" id="password_confirm" name="password_confirm" required>
+                <div class="form-text">Retapez le mot de passe pour confirmation.</div>
+            </div>
+        </div>
+
+        <!-- Password strength indicator -->
+        <div class="mb-3">
+            <div class="form-text">Force du mot de passe :</div>
+            <div class="progress" style="height: 5px;">
+                <div class="progress-bar" role="progressbar" id="password-strength-bar" 
+                     style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <small id="password-strength-text" class="form-text"></small>
+        </div>
+
+        <!-- Password match indicator -->
+        <div id="password-match" class="mb-3" style="display: none;">
+            <small class="form-text"></small>
+        </div>
+
+        <div class="d-flex justify-content-between mt-4">
+            <a href="{{ path('install_database') }}" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left me-2"></i>
+                Retour
+            </a>
+            
+            <button type="submit" class="btn btn-primary">
+                Continuer
+                <i class="fas fa-arrow-right ms-2"></i>
+            </button>
+        </div>
+    </form>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const passwordField = document.getElementById('password');
+            const confirmField = document.getElementById('password_confirm');
+            const strengthBar = document.getElementById('password-strength-bar');
+            const strengthText = document.getElementById('password-strength-text');
+            const matchDiv = document.getElementById('password-match');
+
+            // Password strength checker
+            function checkPasswordStrength(password) {
+                let score = 0;
+                let feedback = [];
+
+                if (password.length >= 8) {
+                    score += 20;
+                } else {
+                    feedback.push('Au moins 8 caractères');
+                }
+
+                if (/[a-z]/.test(password)) {
+                    score += 20;
+                } else {
+                    feedback.push('Une lettre minuscule');
+                }
+
+                if (/[A-Z]/.test(password)) {
+                    score += 20;
+                } else {
+                    feedback.push('Une lettre majuscule');
+                }
+
+                if (/[0-9]/.test(password)) {
+                    score += 20;
+                } else {
+                    feedback.push('Un chiffre');
+                }
+
+                if (/[^a-zA-Z0-9]/.test(password)) {
+                    score += 20;
+                } else {
+                    feedback.push('Un caractère spécial');
+                }
+
+                return { score, feedback };
+            }
+
+            // Update password strength display
+            passwordField.addEventListener('input', function() {
+                const password = this.value;
+                const result = checkPasswordStrength(password);
+                
+                strengthBar.style.width = result.score + '%';
+                strengthBar.setAttribute('aria-valuenow', result.score);
+                
+                if (result.score < 40) {
+                    strengthBar.className = 'progress-bar bg-danger';
+                    strengthText.textContent = 'Faible - Manque: ' + result.feedback.join(', ');
+                    strengthText.className = 'form-text text-danger';
+                } else if (result.score < 80) {
+                    strengthBar.className = 'progress-bar bg-warning';
+                    strengthText.textContent = 'Moyen - Manque: ' + result.feedback.join(', ');
+                    strengthText.className = 'form-text text-warning';
+                } else {
+                    strengthBar.className = 'progress-bar bg-success';
+                    strengthText.textContent = 'Fort';
+                    strengthText.className = 'form-text text-success';
+                }
+
+                checkPasswordMatch();
+            });
+
+            // Password match checker
+            function checkPasswordMatch() {
+                const password = passwordField.value;
+                const confirm = confirmField.value;
+                
+                if (confirm.length > 0) {
+                    matchDiv.style.display = 'block';
+                    const matchText = matchDiv.querySelector('small');
+                    
+                    if (password === confirm) {
+                        matchText.textContent = '✓ Les mots de passe correspondent';
+                        matchText.className = 'form-text text-success';
+                    } else {
+                        matchText.textContent = '✗ Les mots de passe ne correspondent pas';
+                        matchText.className = 'form-text text-danger';
+                    }
+                } else {
+                    matchDiv.style.display = 'none';
+                }
+            }
+
+            confirmField.addEventListener('input', checkPasswordMatch);
+
+            // Auto-fill username with email if empty
+            document.getElementById('email').addEventListener('input', function() {
+                const usernameField = document.getElementById('username');
+                if (usernameField.value === '') {
+                    usernameField.value = this.value.split('@')[0];
+                }
+            });
+        });
+    </script>
+{% endblock %}

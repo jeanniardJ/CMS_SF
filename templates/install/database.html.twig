@@ -1,0 +1,256 @@
+{% extends 'install/layout.html.twig' %}
+
+{% block title %}Configuration base de données{% endblock %}
+
+{% block content %}
+    <div class="text-center mb-4">
+        <i class="fas fa-database fa-3x text-success mb-3"></i>
+        <h2>Configuration base de données</h2>
+        <p class="lead">
+            Paramètres de connexion à votre base de données.
+        </p>
+    </div>
+
+    {% if errors is defined and errors %}
+        <div class="alert alert-danger" role="alert">
+            <i class="fas fa-exclamation-triangle me-2"></i>
+            <strong>Erreurs de validation :</strong>
+            <ul class="mb-0 mt-2">
+                {% for error in errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    {% if connection_error is defined %}
+        <div class="alert alert-danger" role="alert">
+            <i class="fas fa-times-circle me-2"></i>
+            <strong>Erreur de connexion :</strong> {{ connection_error }}
+        </div>
+    {% endif %}
+
+    {% if database_error is defined %}
+        <div class="alert alert-danger" role="alert">
+            <i class="fas fa-times-circle me-2"></i>
+            <strong>Erreur de base de données :</strong> {{ database_error }}
+        </div>
+    {% endif %}
+
+    {% if env_error is defined %}
+        <div class="alert alert-danger" role="alert">
+            <i class="fas fa-times-circle me-2"></i>
+            <strong>Erreur d'environnement :</strong> {{ env_error }}
+        </div>
+    {% endif %}
+
+    <form method="post" id="database-form">
+        <div class="row">
+            <div class="col-12 mb-3">
+                <label for="type" class="form-label">
+                    <i class="fas fa-server me-2"></i>
+                    Type de base de données
+                </label>
+                <select class="form-select" id="type" name="type" required>
+                    <option value="mysql" {% if config.type == 'mysql' %}selected{% endif %}>MySQL</option>
+                    <option value="postgresql" {% if config.type == 'postgresql' %}selected{% endif %}>PostgreSQL</option>
+                    <option value="sqlite" {% if config.type == 'sqlite' %}selected{% endif %}>SQLite</option>
+                </select>
+            </div>
+        </div>
+
+        <div id="network-db-config" {% if config.type == 'sqlite' %}style="display: none;"{% endif %}>
+            <div class="row">
+                <div class="col-md-8 mb-3">
+                    <label for="host" class="form-label">
+                        <i class="fas fa-globe me-2"></i>
+                        Hôte
+                    </label>
+                    <input type="text" class="form-control" id="host" name="host" 
+                           value="{{ config.host }}" placeholder="localhost" required>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="port" class="form-label">
+                        <i class="fas fa-plug me-2"></i>
+                        Port
+                    </label>
+                    <input type="number" class="form-control" id="port" name="port" 
+                           value="{{ config.port }}" placeholder="3306">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="name" class="form-label">
+                        <i class="fas fa-database me-2"></i>
+                        Nom de la base
+                    </label>
+                    <input type="text" class="form-control" id="name" name="name" 
+                           value="{{ config.name }}" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="user" class="form-label">
+                        <i class="fas fa-user me-2"></i>
+                        Nom d'utilisateur
+                    </label>
+                    <input type="text" class="form-control" id="user" name="user" 
+                           value="{{ config.user }}" required>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12 mb-3">
+                    <label for="password" class="form-label">
+                        <i class="fas fa-lock me-2"></i>
+                        Mot de passe
+                    </label>
+                    <input type="password" class="form-control" id="password" name="password" 
+                           value="{{ config.password }}">
+                    <div class="form-text">Laissez vide si aucun mot de passe n'est requis.</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="sqlite-info" {% if config.type != 'sqlite' %}style="display: none;"{% endif %}>
+            <div class="alert alert-info" role="alert">
+                <i class="fas fa-info-circle me-2"></i>
+                <strong>SQLite :</strong> La base de données sera créée automatiquement dans le dossier <code>var/</code>.
+                Aucune configuration supplémentaire n'est nécessaire.
+            </div>
+        </div>
+
+        <div class="d-grid gap-2 mb-3">
+            <button type="button" class="btn btn-outline-primary" id="test-connection">
+                <i class="fas fa-plug me-2"></i>
+                Tester la connexion
+            </button>
+        </div>
+
+        <div id="connection-test-result" style="display: none;"></div>
+
+        <div class="d-flex justify-content-between mt-4">
+            <a href="{{ path('install_compatibility') }}" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left me-2"></i>
+                Retour
+            </a>
+            
+            <button type="submit" class="btn btn-primary">
+                Continuer
+                <i class="fas fa-arrow-right ms-2"></i>
+            </button>
+        </div>
+    </form>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const typeSelect = document.getElementById('type');
+            const networkConfig = document.getElementById('network-db-config');
+            const sqliteInfo = document.getElementById('sqlite-info');
+            const testBtn = document.getElementById('test-connection');
+            const testResult = document.getElementById('connection-test-result');
+            const form = document.getElementById('database-form');
+
+            // Toggle configuration based on database type
+            typeSelect.addEventListener('change', function() {
+                if (this.value === 'sqlite') {
+                    networkConfig.style.display = 'none';
+                    sqliteInfo.style.display = 'block';
+                    
+                    // Remove required attributes for SQLite
+                    document.getElementById('host').removeAttribute('required');
+                    document.getElementById('name').removeAttribute('required');
+                    document.getElementById('user').removeAttribute('required');
+                } else {
+                    networkConfig.style.display = 'block';
+                    sqliteInfo.style.display = 'none';
+                    
+                    // Add required attributes for network databases
+                    document.getElementById('host').setAttribute('required', 'required');
+                    document.getElementById('name').setAttribute('required', 'required');
+                    document.getElementById('user').setAttribute('required', 'required');
+                }
+
+                // Update default port
+                const portField = document.getElementById('port');
+                if (this.value === 'mysql') {
+                    portField.placeholder = '3306';
+                } else if (this.value === 'postgresql') {
+                    portField.placeholder = '5432';
+                }
+            });
+
+            // Test connection
+            testBtn.addEventListener('click', function() {
+                const formData = new FormData(form);
+                const data = Object.fromEntries(formData);
+
+                testBtn.disabled = true;
+                testBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Test en cours...';
+                testResult.style.display = 'none';
+
+                fetch('{{ path("install_database_test") }}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'X-Requested-With': 'XMLHttpRequest'
+                    },
+                    body: new URLSearchParams(data)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    testBtn.disabled = false;
+                    testBtn.innerHTML = '<i class="fas fa-plug me-2"></i>Tester la connexion';
+                    
+                    testResult.style.display = 'block';
+                    if (data.success) {
+                        testResult.innerHTML = `
+                            <div class="alert alert-success" role="alert">
+                                <i class="fas fa-check-circle me-2"></i>
+                                <strong>Connexion réussie !</strong><br>
+                                ${data.message}
+                                ${data.version ? `<br><small>Version: ${data.version}</small>` : ''}
+                            </div>
+                        `;
+                    } else {
+                        let errorHtml = `
+                            <div class="alert alert-danger" role="alert">
+                                <i class="fas fa-times-circle me-2"></i>
+                                <strong>Connexion échouée :</strong><br>
+                                ${data.message}
+                        `;
+                        
+                        if (data.errors && data.errors.length > 0) {
+                            errorHtml += '<ul class="mb-0 mt-2">';
+                            data.errors.forEach(error => {
+                                errorHtml += `<li>${error}</li>`;
+                            });
+                            errorHtml += '</ul>';
+                        }
+                        
+                        errorHtml += '</div>';
+                        testResult.innerHTML = errorHtml;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    testBtn.disabled = false;
+                    testBtn.innerHTML = '<i class="fas fa-plug me-2"></i>Tester la connexion';
+                    
+                    testResult.style.display = 'block';
+                    testResult.innerHTML = `
+                        <div class="alert alert-danger" role="alert">
+                            <i class="fas fa-times-circle me-2"></i>
+                            <strong>Erreur de test :</strong> Une erreur s'est produite lors du test de connexion.
+                        </div>
+                    `;
+                });
+            });
+
+            // Trigger change event on page load
+            typeSelect.dispatchEvent(new Event('change'));
+        });
+    </script>
+{% endblock %}
