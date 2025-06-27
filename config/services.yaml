@@ -46,6 +46,24 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+    
+    # Installation Services
+    App\Service\Install\CompatibilityChecker: ~
+    
+    App\Service\Install\DatabaseManager:
+        arguments:
+            $projectDir: '%kernel.project_dir%'
+    
+    App\Service\Install\EnvironmentManager:
+        arguments:
+            $projectDir: '%kernel.project_dir%'
+    
+    App\Service\Install\UserManager: ~
+    
+    App\Service\Install\ConfigurationManager:
+        arguments:
+            $projectDir: '%kernel.project_dir%'
+    
     App\EventSubscriber\InstallSubscriber:
         tags:
             - { name: "kernel.event_subscriber", priority: 100 }

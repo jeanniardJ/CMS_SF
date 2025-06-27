@@ -1,0 +1,124 @@
+{% extends 'install/layout.html.twig' %}
+
+{% block title %}Installation terminée{% endblock %}
+
+{% block content %}
+    <div class="text-center mb-4">
+        <i class="fas fa-check-circle fa-4x text-success mb-3"></i>
+        <h2 class="text-success">Installation terminée avec succès !</h2>
+        <p class="lead">
+            Votre CMS SF est maintenant prêt à être utilisé.
+        </p>
+    </div>
+
+    <div class="row g-4 mb-4">
+        <div class="col-md-6">
+            <div class="card h-100 border-success">
+                <div class="card-body text-center">
+                    <i class="fas fa-shield-check fa-2x text-success mb-3"></i>
+                    <h5>Installation sécurisée</h5>
+                    <p class="card-text">
+                        L'installation a été verrouillée pour empêcher tout accès non autorisé au wizard.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card h-100 border-info">
+                <div class="card-body text-center">
+                    <i class="fas fa-rocket fa-2x text-info mb-3"></i>
+                    <h5>Prêt à l'emploi</h5>
+                    <p class="card-text">
+                        Votre base de données est configurée et votre compte administrateur est créé.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% if installation_info %}
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-info-circle me-2"></i>
+                    Informations d'installation
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <strong>Date d'installation :</strong><br>
+                        <span class="text-muted">{{ installation_info.installed_at }}</span>
+                    </div>
+                    <div class="col-md-6">
+                        <strong>Version du CMS :</strong><br>
+                        <span class="text-muted">{{ installation_info.version }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="alert alert-success" role="alert">
+        <h6 class="alert-heading">
+            <i class="fas fa-thumbs-up me-2"></i>
+            Félicitations !
+        </h6>
+        <p>Votre CMS SF a été installé avec succès. Vous pouvez maintenant :</p>
+        <hr>
+        <ul class="mb-0">
+            <li>Accéder à l'interface d'administration pour personnaliser votre site</li>
+            <li>Créer du contenu et gérer vos pages</li>
+            <li>Configurer les paramètres avancés selon vos besoins</li>
+            <li>Inviter d'autres utilisateurs si nécessaire</li>
+        </ul>
+    </div>
+
+    <div class="card bg-light">
+        <div class="card-body">
+            <h6 class="card-title">
+                <i class="fas fa-lightbulb me-2"></i>
+                Prochaines étapes recommandées
+            </h6>
+            <ol class="mb-0">
+                <li><strong>Sauvegarder votre configuration</strong> - Conservez une copie de vos fichiers de configuration</li>
+                <li><strong>Configurer les sauvegardes automatiques</strong> - Mettez en place une stratégie de sauvegarde</li>
+                <li><strong>Personnaliser l'apparence</strong> - Ajustez le thème et les couleurs selon votre charte</li>
+                <li><strong>Créer votre premier contenu</strong> - Ajoutez des pages et articles</li>
+                <li><strong>Configurer les emails</strong> - Testez l'envoi d'emails et les notifications</li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="d-grid gap-2 d-md-flex justify-content-md-center mt-4">
+        <a href="{{ path('app_admin') }}" class="btn btn-primary btn-lg me-md-2">
+            <i class="fas fa-cog me-2"></i>
+            Accéder à l'administration
+        </a>
+        <a href="{{ path('app_home') }}" class="btn btn-outline-primary btn-lg">
+            <i class="fas fa-home me-2"></i>
+            Voir le site
+        </a>
+    </div>
+
+    <div class="text-center mt-4">
+        <small class="text-muted">
+            <i class="fas fa-question-circle me-2"></i>
+            Besoin d'aide ? Consultez la <a href="#" class="text-decoration-none">documentation</a> 
+            ou contactez le <a href="#" class="text-decoration-none">support technique</a>.
+        </small>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add some celebration animation
+            setTimeout(function() {
+                // You could add confetti animation here if desired
+                console.log('🎉 Installation completed successfully!');
+            }, 1000);
+        });
+    </script>
+{% endblock %}

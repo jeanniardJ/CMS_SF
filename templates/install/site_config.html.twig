@@ -1,0 +1,286 @@
+{% extends 'install/layout.html.twig' %}
+
+{% block title %}Configuration du site{% endblock %}
+
+{% block content %}
+    <div class="text-center mb-4">
+        <i class="fas fa-cog fa-3x text-info mb-3"></i>
+        <h2>Configuration du site</h2>
+        <p class="lead">
+            Paramètres généraux et personnalisation de votre CMS.
+        </p>
+    </div>
+
+    {% if errors is defined and errors %}
+        <div class="alert alert-danger" role="alert">
+            <i class="fas fa-exclamation-triangle me-2"></i>
+            <strong>Erreurs de validation :</strong>
+            <ul class="mb-0 mt-2">
+                {% for error in errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    <form method="post" id="site-config-form">
+        <!-- Site Information -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-globe me-2"></i>
+                    Informations du site
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="site_name" class="form-label">
+                            Nom du site <span class="text-danger">*</span>
+                        </label>
+                        <input type="text" class="form-control" id="site_name" name="site[name]" 
+                               value="{{ config_data.site.name }}" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="site_url" class="form-label">
+                            URL du site
+                        </label>
+                        <input type="url" class="form-control" id="site_url" name="site[url]" 
+                               value="{{ config_data.site.url }}" placeholder="https://example.com">
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="site_description" class="form-label">
+                        Description du site
+                    </label>
+                    <textarea class="form-control" id="site_description" name="site[description]" 
+                              rows="3" maxlength="1000">{{ config_data.site.description }}</textarea>
+                    <div class="form-text">Brève description de votre site (max 1000 caractères).</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Email Configuration -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-envelope me-2"></i>
+                    Configuration email
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="from_email" class="form-label">
+                            Email d'expéditeur
+                        </label>
+                        <input type="email" class="form-control" id="from_email" name="email[from_email]" 
+                               value="{{ config_data.email.from_email }}" placeholder="noreply@example.com">
+                        <div class="form-text">Email utilisé pour l'envoi des notifications.</div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="from_name" class="form-label">
+                            Nom de l'expéditeur
+                        </label>
+                        <input type="text" class="form-control" id="from_name" name="email[from_name]" 
+                               value="{{ config_data.email.from_name }}" placeholder="Mon Site Web">
+                    </div>
+                </div>
+                
+                <div class="alert alert-info" role="alert">
+                    <i class="fas fa-info-circle me-2"></i>
+                    <strong>Configuration SMTP avancée :</strong> 
+                    La configuration SMTP détaillée peut être effectuée plus tard dans les paramètres d'administration.
+                </div>
+            </div>
+        </div>
+
+        <!-- Template Configuration -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-paint-brush me-2"></i>
+                    Apparence et contenu
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="template_title" class="form-label">
+                            Titre principal
+                        </label>
+                        <input type="text" class="form-control" id="template_title" name="template[title]" 
+                               value="{{ config_data.template.title }}" placeholder="Bienvenue sur mon site">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="template_theme" class="form-label">
+                            Thème
+                        </label>
+                        <select class="form-select" id="template_theme" name="template[theme]">
+                            <option value="default" {% if config_data.template.theme == 'default' %}selected{% endif %}>Par défaut</option>
+                            <option value="dark" {% if config_data.template.theme == 'dark' %}selected{% endif %}>Sombre</option>
+                            <option value="light" {% if config_data.template.theme == 'light' %}selected{% endif %}>Clair</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="template_description" class="form-label">
+                        Description d'accueil
+                    </label>
+                    <textarea class="form-control" id="template_description" name="template[description]" 
+                              rows="3">{{ config_data.template.description }}</textarea>
+                    <div class="form-text">Message affiché sur la page d'accueil.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Security Configuration -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-shield-alt me-2"></i>
+                    Sécurité
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="session_timeout" class="form-label">
+                            Timeout de session (secondes)
+                        </label>
+                        <input type="number" class="form-control" id="session_timeout" name="security[session_timeout]" 
+                               value="{{ config_data.security.session_timeout }}" min="300" max="86400">
+                        <div class="form-text">Durée d'inactivité avant déconnexion automatique.</div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="password_policy" class="form-label">
+                            Politique de mot de passe
+                        </label>
+                        <select class="form-select" id="password_policy" name="security[password_policy]">
+                            <option value="basic" {% if config_data.security.password_policy == 'basic' %}selected{% endif %}>Basique</option>
+                            <option value="strict" {% if config_data.security.password_policy == 'strict' %}selected{% endif %}>Stricte</option>
+                            <option value="enterprise" {% if config_data.security.password_policy == 'enterprise' %}selected{% endif %}>Entreprise</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="enable_2fa" name="security[enable_2fa]" value="1"
+                           {% if config_data.security.enable_2fa %}checked{% endif %}>
+                    <label class="form-check-label" for="enable_2fa">
+                        Activer l'authentification à deux facteurs (recommandé)
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Analytics Configuration -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-chart-line me-2"></i>
+                    Analytics (optionnel)
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="google_analytics" class="form-label">
+                            Code Google Analytics
+                        </label>
+                        <input type="text" class="form-control" id="google_analytics" name="analytics[google_analytics]" 
+                               value="{{ config_data.analytics.google_analytics }}" placeholder="UA-123456789">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="facebook_pixel" class="form-label">
+                            Facebook Pixel ID
+                        </label>
+                        <input type="text" class="form-control" id="facebook_pixel" name="analytics[facebook_pixel]" 
+                               value="{{ config_data.analytics.facebook_pixel }}" placeholder="123456789">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="matomo_url" class="form-label">
+                            URL Matomo
+                        </label>
+                        <input type="url" class="form-control" id="matomo_url" name="analytics[matomo_url]" 
+                               value="{{ config_data.analytics.matomo_url }}" placeholder="https://analytics.example.com">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="matomo_site_id" class="form-label">
+                            Site ID Matomo
+                        </label>
+                        <input type="text" class="form-control" id="matomo_site_id" name="analytics[matomo_site_id]" 
+                               value="{{ config_data.analytics.matomo_site_id }}" placeholder="1">
+                    </div>
+                </div>
+                
+                <div class="alert alert-warning" role="alert">
+                    <i class="fas fa-exclamation-triangle me-2"></i>
+                    <strong>Confidentialité :</strong> 
+                    Assurez-vous de respecter les réglementations en vigueur (RGPD, etc.) lors de l'utilisation d'outils d'analytics.
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-between mt-4">
+            <a href="{{ path('install_admin_user') }}" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left me-2"></i>
+                Retour
+            </a>
+            
+            <button type="submit" class="btn btn-primary">
+                Continuer
+                <i class="fas fa-arrow-right ms-2"></i>
+            </button>
+        </div>
+    </form>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Auto-fill from_email with site name
+            const siteNameField = document.getElementById('site_name');
+            const fromEmailField = document.getElementById('from_email');
+            const fromNameField = document.getElementById('from_name');
+            
+            siteNameField.addEventListener('input', function() {
+                if (fromNameField.value === '') {
+                    fromNameField.value = this.value;
+                }
+            });
+
+            // Character counter for description
+            const descriptionField = document.getElementById('site_description');
+            const maxLength = 1000;
+            
+            function updateCharacterCount() {
+                const currentLength = descriptionField.value.length;
+                const remaining = maxLength - currentLength;
+                
+                let counterElement = document.getElementById('description-counter');
+                if (!counterElement) {
+                    counterElement = document.createElement('div');
+                    counterElement.id = 'description-counter';
+                    counterElement.className = 'form-text';
+                    descriptionField.parentNode.appendChild(counterElement);
+                }
+                
+                counterElement.textContent = `${currentLength}/${maxLength} caractères`;
+                
+                if (remaining < 50) {
+                    counterElement.className = 'form-text text-warning';
+                } else if (remaining < 0) {
+                    counterElement.className = 'form-text text-danger';
+                } else {
+                    counterElement.className = 'form-text text-muted';
+                }
+            }
+            
+            descriptionField.addEventListener('input', updateCharacterCount);
+            updateCharacterCount(); // Initial count
+        });
+    </script>
+{% endblock %}

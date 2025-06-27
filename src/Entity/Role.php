@@ -21,8 +21,11 @@ class Role
     #[ORM\Column(length: 255)]
     private ?string $secondName = null;
 
-    #[ORM\ManyToMany(targetEntity: user::class, mappedBy: 'roleEntities')]
+    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'roleEntities')]
     private Collection $users;
+
+    #[ORM\Column(length: 500, nullable: true)]
+    private ?string $description = null;
 
     public function __construct()
     {
@@ -74,6 +77,18 @@ class Role
             $this->users->removeElement($user);
             $user->removeRoleEntities($this);
         }
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): static
+    {
+        $this->description = $description;
 
         return $this;
     }

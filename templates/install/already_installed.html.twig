@@ -1,0 +1,110 @@
+{% extends 'install/layout.html.twig' %}
+
+{% block title %}Installation déjà effectuée{% endblock %}
+
+{% block content %}
+    <div class="text-center mb-4">
+        <i class="fas fa-lock fa-3x text-warning mb-3"></i>
+        <h2 class="text-warning">Installation déjà effectuée</h2>
+        <p class="lead">
+            Le CMS SF a déjà été installé et configuré sur ce système.
+        </p>
+    </div>
+
+    {% if installation_info %}
+        <div class="card mb-4">
+            <div class="card-header bg-warning text-dark">
+                <h5 class="mb-0">
+                    <i class="fas fa-info-circle me-2"></i>
+                    Informations d'installation
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4 mb-2">
+                        <strong>Date d'installation :</strong><br>
+                        <span class="text-muted">{{ installation_info.installed_at }}</span>
+                    </div>
+                    <div class="col-md-4 mb-2">
+                        <strong>Version du CMS :</strong><br>
+                        <span class="text-muted">{{ installation_info.version }}</span>
+                    </div>
+                    <div class="col-md-4 mb-2">
+                        <strong>Version de l'installateur :</strong><br>
+                        <span class="text-muted">{{ installation_info.installer_version }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="alert alert-warning" role="alert">
+        <h6 class="alert-heading">
+            <i class="fas fa-shield-alt me-2"></i>
+            Sécurité
+        </h6>
+        <p>Le wizard d'installation a été automatiquement désactivé après l'installation initiale pour des raisons de sécurité.</p>
+        <hr>
+        <p class="mb-0">
+            Si vous devez réinstaller le système, supprimez le fichier <code>.installed</code> 
+            à la racine du projet (mode développement uniquement).
+        </p>
+    </div>
+
+    <div class="row g-4 mb-4">
+        <div class="col-md-6">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <i class="fas fa-cog fa-2x text-primary mb-3"></i>
+                    <h5>Administration</h5>
+                    <p class="card-text">
+                        Accédez au panneau d'administration pour gérer votre site.
+                    </p>
+                    <a href="{{ path('app_admin') }}" class="btn btn-primary">
+                        <i class="fas fa-cog me-2"></i>
+                        Administration
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <i class="fas fa-home fa-2x text-info mb-3"></i>
+                    <h5>Site web</h5>
+                    <p class="card-text">
+                        Visitez votre site web et découvrez son contenu.
+                    </p>
+                    <a href="{{ path('app_home') }}" class="btn btn-info">
+                        <i class="fas fa-home me-2"></i>
+                        Voir le site
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card bg-light">
+        <div class="card-body">
+            <h6 class="card-title">
+                <i class="fas fa-question-circle me-2"></i>
+                Besoin d'aide ?
+            </h6>
+            <p class="card-text">
+                Si vous rencontrez des problèmes ou avez des questions, voici quelques ressources utiles :
+            </p>
+            <ul class="mb-0">
+                <li><strong>Documentation :</strong> Consultez la documentation complète du CMS</li>
+                <li><strong>Support :</strong> Contactez l'équipe de support technique</li>
+                <li><strong>Communauté :</strong> Rejoignez la communauté des utilisateurs</li>
+                <li><strong>Mises à jour :</strong> Vérifiez les mises à jour disponibles</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="text-center mt-4">
+        <small class="text-muted">
+            CMS SF - Installation Wizard
+        </small>
+    </div>
+{% endblock %}
