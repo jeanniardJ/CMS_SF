@@ -1,0 +1,71 @@
+{% extends 'install/layout.html.twig' %}
+
+{% block title %}Bienvenue{% endblock %}
+
+{% block content %}
+    <div class="text-center mb-4">
+        <i class="fas fa-rocket fa-3x text-primary mb-3"></i>
+        <h2>Bienvenue dans l'assistant d'installation</h2>
+        <p class="lead">
+            Cet assistant vous guidera à travers la configuration de votre CMS.
+        </p>
+    </div>
+
+    <div class="row g-4 mb-4">
+        <div class="col-md-6">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <i class="fas fa-shield-alt fa-2x text-success mb-3"></i>
+                    <h5>Installation Sécurisée</h5>
+                    <p class="card-text">
+                        Configuration automatique avec validation des prérequis et sécurisation des accès.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <i class="fas fa-cogs fa-2x text-info mb-3"></i>
+                    <h5>Configuration Guidée</h5>
+                    <p class="card-text">
+                        Interface intuitive pour configurer votre base de données, utilisateurs et paramètres.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="alert alert-info" role="alert">
+        <i class="fas fa-info-circle me-2"></i>
+        <strong>Avant de commencer :</strong>
+        <ul class="mb-0 mt-2">
+            <li>Assurez-vous d'avoir les informations de connexion à votre base de données</li>
+            <li>Préparez les détails de votre compte administrateur</li>
+            <li>Définissez les paramètres de votre site (nom, description, etc.)</li>
+        </ul>
+    </div>
+
+    <div class="card bg-light">
+        <div class="card-body">
+            <h6 class="card-title">
+                <i class="fas fa-list me-2"></i>
+                Étapes de l'installation
+            </h6>
+            <ol class="mb-0">
+                <li><strong>Tests de compatibilité</strong> - Vérification des prérequis système</li>
+                <li><strong>Configuration base de données</strong> - Paramètres de connexion et création</li>
+                <li><strong>Compte administrateur</strong> - Création de votre compte admin</li>
+                <li><strong>Configuration du site</strong> - Paramètres généraux et personnalisation</li>
+                <li><strong>Finalisation</strong> - Application des configurations et verrouillage</li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+        <a href="{{ path('install_compatibility') }}" class="btn btn-primary btn-lg">
+            <i class="fas fa-arrow-right me-2"></i>
+            Commencer l'installation
+        </a>
+    </div>
+{% endblock %}
