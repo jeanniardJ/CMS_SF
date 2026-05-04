@@ -16,7 +16,7 @@
         "@symfony/ux-live-component": "file:vendor/symfony/ux-live-component/assets",
         "@symfony/ux-react": "file:vendor/symfony/ux-react/assets",
         "@symfony/ux-typed": "file:vendor/symfony/ux-typed/assets",
-        "@symfony/webpack-encore": "^4.0.0",
+        "@symfony/webpack-encore": "^6.0.0",
         "@typescript-eslint/eslint-plugin": "^7.6.0",
         "@typescript-eslint/parser": "^7.6.0",
         "autoprefixer": "^10.4.19",
