@@ -37,7 +37,7 @@
         "mini-css-extract-plugin": "^2.9.0",
         "postcss": "^8.4.31",
         "postcss-import": "^16.1.0",
-        "postcss-loader": "^7.3.4",
+        "postcss-loader": "^8.2.1",
         "postcss-preset-env": "^9.5.2",
         "postcss-purgecss": "^5.0.0",
         "prop-types": "^15.8.1",
